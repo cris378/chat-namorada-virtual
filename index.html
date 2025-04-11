@@ -72,3 +72,78 @@
       border-radius: 10px;
       border: 1px solid #ccc;
     }
+
+    button {
+      margin-top: 12px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      background-color: #d63384;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .limit-msg {
+      color: #d63384;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <img src="https://i.imgur.com/ntLkVTS.png" class="avatar" alt="Jessica" />
+    <h1>Jessica 💖</h1>
+    <p>Oi, amor! Que bom que você está aqui... Vamos conversar?</p>
+    <div class="message-box" id="chat">
+      <div class="msg">Jessica: Você parece tão interessante... 😘</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Escreva aqui..." />
+      <button onclick="enviarMensagem()">Enviar</button>
+    </div>
+
+    <div class="limit-msg" id="limitAviso" style="display: none;">
+      Você usou suas 10 mensagens grátis 😢<br />
+      Para continuar conversando com a Jessica por mais 3 horas,<br />
+      envie apenas <strong>R$ 9,90 via Pix</strong> 💖
+      <br /><br />
+      <button onclick="alert('Aqui vai o link ou QR Code do Pix depois')">Continuar conversa</button>
+    </div>
+  </div>
+
+  <script>
+    let mensagens = 1;
+
+    function enviarMensagem() {
+      const input = document.getElementById("userInput");
+      const chat = document.getElementById("chat");
+      const aviso = document.getElementById("limitAviso");
+
+      if (mensagens >= 10) {
+        aviso.style.display = "block";
+        return;
+      }
+
+      if (input.value.trim() === "") return;
+
+      const msg = document.createElement("div");
+      msg.className = "msg user";
+      msg.innerText = "Você: " + input.value;
+      chat.appendChild(msg);
+      input.value = "";
+      mensagens++;
+
+      setTimeout(() => {
+        const resposta = document.createElement("div");
+        resposta.className = "msg";
+        resposta.innerText = "Jessica: Hmm... me conta mais 💋";
+        chat.appendChild(resposta);
+        chat.scrollTop = chat.scrollHeight;
+      }, 800);
+    }
+  </script>
+</body>
+</html>
