@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Namorada Virtual - Chat</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #ffe9f0; }
+    #chat { border: 1px solid #ccc; padding: 10px; max-height: 400px; overflow-y: auto; background: #fff; }
+    .msg { margin: 10px 0; }
+    .user { color: blue; }
+    .bot { color: deeppink; }
+    #input { margin-top: 10px; display: flex; gap: 5px; }
+    button { padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h1>💖 Chat com sua Namorada Virtual</h1>
+  <div id="chat"></div>
+  <div id="input">
+    <input type="text" id="msg" placeholder="Escreva sua mensagem..." />
+    <button onclick="enviar()">Enviar</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const msgInput = document.getElementById("msg");
+    let mensagens = 0;
+    let maxGratis = 10;
+
+    function enviar() {
+      const texto = msgInput.value.trim();
+      if (!texto) return;
+      adicionarMsg("Você", texto, "user");
+      msgInput.value = "";
+
+      mensagens++;
+
+      if (mensagens >= maxGratis) {
+        adicionarMsg("Luna", "❤️ Para continuar conversando, envie R$9,90 via Pix para chave: SEU-PIX@EMAIL.COM e volte aqui para mais 3 horas de conversa!", "bot");
+        document.getElementById("input").style.display = "none";
+        return;
+      }
+
+      setTimeout(() => {
+        adicionarMsg("Luna", responder(texto), "bot");
+      }, 600);
+    }
+
+    function adicionarMsg(nome, texto, classe) {
+      const div = document.createElement("div");
+      div.className = `msg ${classe}`;
+      div.innerHTML = `<strong>${nome}:</strong> ${texto}`;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function responder(txt) {
+      const respostas = [
+        "Ai, que fofo você 💕",
+        "Conta mais de você 😘",
+        "Tô adorando nossa conversa...",
+        "Se eu estivesse aí... 😏",
+        "Você me deixa sem palavras 😍",
+        "Hmmm... me conta o que você tá pensando 👀"
+      ];
+      return respostas[Math.floor(Math.random() * respostas.length)];
+    }
+  </script>
+</body>
+</html>
